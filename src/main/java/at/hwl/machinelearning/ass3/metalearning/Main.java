@@ -8,15 +8,23 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
+  private static final String TRAINING_DATA_SETS_LOCATION = "datasets/";
+  private static final String META_EXTRACTION_RESULT_FILE = "metalearning_results.CSV";
 
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
+
     final ExecutorService executorService = Executors.newFixedThreadPool(10);
-    final InstanceCreator creator = new InstanceCreator("datasets/");
+    final InstanceCreator creator = new InstanceCreator(TRAINING_DATA_SETS_LOCATION);
 
-    final MetaLearner metaLearner = new MetaLearner(executorService, creator);
-    metaLearner.learn();
+    try {
+      final MetaLearner metaLearner = new MetaLearner(executorService, creator, META_EXTRACTION_RESULT_FILE);
+      metaLearner.learn();
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      executorService.shutdown();
+    }
 
-    executorService.shutdown();
   }
 
 

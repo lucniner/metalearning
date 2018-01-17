@@ -24,11 +24,13 @@ public class MetaLearner {
 
   private final ExecutorService executorService;
   private final InstanceCreator instanceCreator;
+  private final String metaExtractionResultFile;
 
 
-  public MetaLearner(ExecutorService executorService, InstanceCreator instanceCreator) {
+  public MetaLearner(ExecutorService executorService, InstanceCreator instanceCreator, String metaExtractionResultFile) {
     this.executorService = executorService;
     this.instanceCreator = instanceCreator;
+    this.metaExtractionResultFile = metaExtractionResultFile;
   }
 
   public void learn() throws Exception {
@@ -64,7 +66,7 @@ public class MetaLearner {
 
   private void writeNewDataSet() throws IOException {
     final MetaResultWriter writer = new MetaResultWriter(bestClassifierPerDataSet, featureValuesPerDataSet, featureNames);
-    writer.writeResultsToFile("metalearning_results.CSV");
+    writer.writeResultsToFile(metaExtractionResultFile);
   }
 
   private void calculateMetaLearningAlgorithm() {
