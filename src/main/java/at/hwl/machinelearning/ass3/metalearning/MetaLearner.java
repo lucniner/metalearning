@@ -1,6 +1,6 @@
 package at.hwl.machinelearning.ass3.metalearning;
 
-import at.hwl.machinelearning.ass3.metalearning.classification.ClassificationRunner;
+import at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification.ClassificationRunner;
 import at.hwl.machinelearning.ass3.metalearning.datahandling.InstanceCreator;
 import at.hwl.machinelearning.ass3.metalearning.datahandling.MetaResultWriter;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.FeatureExtractor;
@@ -24,12 +24,14 @@ public class MetaLearner {
 
   private final ExecutorService executorService;
   private final InstanceCreator instanceCreator;
+  private final InstanceCreator metaResultCreator;
   private final String metaExtractionResultFile;
 
 
-  public MetaLearner(ExecutorService executorService, InstanceCreator instanceCreator, String metaExtractionResultFile) {
+  public MetaLearner(ExecutorService executorService, InstanceCreator instanceCreator, InstanceCreator metaResultCreator, String metaExtractionResultFile) {
     this.executorService = executorService;
     this.instanceCreator = instanceCreator;
+    this.metaResultCreator = metaResultCreator;
     this.metaExtractionResultFile = metaExtractionResultFile;
   }
 
@@ -69,8 +71,9 @@ public class MetaLearner {
     writer.writeResultsToFile(metaExtractionResultFile);
   }
 
-  private void calculateMetaLearningAlgorithm() {
-    System.out.println("TODO meta learning");
+  private void calculateMetaLearningAlgorithm() throws Exception {
+    final DataSetInstance instance = metaResultCreator.getSingleInstance();
+    //TODO run cross validation and report performance of all classifiers
   }
 
 

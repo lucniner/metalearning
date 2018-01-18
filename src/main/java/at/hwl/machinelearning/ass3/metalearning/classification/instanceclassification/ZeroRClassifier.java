@@ -1,18 +1,21 @@
-package at.hwl.machinelearning.ass3.metalearning.classification;
+package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import weka.classifiers.Classifier;
-import weka.classifiers.rules.ZeroR;
+import weka.classifiers.rules.M5Rules;
 
-public class ZeroRClassifier extends AbstractClassifier {
+/**
+ * Class for building and using a 0-R classifier. Predicts the mean (for a numeric class) or the mode (for a nominal class).
+ */
+class ZeroRClassifier extends AbstractClassifier {
   ZeroRClassifier(DataSetInstance instance, int trainTestSplitPercent) {
     super(instance, trainTestSplitPercent);
   }
 
   @Override
   Classifier getClassifier() {
-    return new ZeroR();
+    return new M5Rules();
   }
 
   @Override

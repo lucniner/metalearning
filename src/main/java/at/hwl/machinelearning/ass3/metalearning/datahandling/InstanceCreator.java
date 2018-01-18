@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class InstanceCreator {
 
-  final List<String> possibleClassLabels = Arrays.asList(SharedConstants.POSSIBLE_CLASS_LABELS);
+  private final List<String> possibleClassLabels = Arrays.asList(SharedConstants.POSSIBLE_CLASS_LABELS);
   private final DataSetInstances instances = new DataSetInstances();
 
   private final String dataSetLocation;
@@ -29,21 +29,21 @@ public class InstanceCreator {
 
 
   public DataSetInstances loadInstances() throws Exception {
-    final List<String> dataSetsLocations = getAllDatasets();
+    final List<String> dataSetsLocations = getAllDataSets();
     createDataSetInstances(dataSetsLocations);
     return instances;
   }
 
-  private List<String> getAllDatasets() {
-    final URL datasets = this.getClass().getClassLoader().getResource(dataSetLocation);
-    if (datasets != null) {
-      return getDatasetsFromURL(datasets);
+  private List<String> getAllDataSets() {
+    final URL dataSets = this.getClass().getClassLoader().getResource(dataSetLocation);
+    if (dataSets != null) {
+      return getDataSetsFromURL(dataSets);
     } else {
       return Collections.emptyList();
     }
   }
 
-  private List<String> getDatasetsFromURL(final URL url) {
+  private List<String> getDataSetsFromURL(final URL url) {
     final String path = url.getPath();
     final File[] dataSetFiles = new File(path).listFiles();
 
@@ -54,8 +54,8 @@ public class InstanceCreator {
     }
   }
 
-  private void createDataSetInstances(final List<String> dasetLocations) throws Exception {
-    for (final String location : dasetLocations) {
+  private void createDataSetInstances(final List<String> dataSetLocations) throws Exception {
+    for (final String location : dataSetLocations) {
       final ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(location);
       final Instances instance = dataSource.getDataSet();
       final int classIndex = getClassIndex(instance);
@@ -65,6 +65,14 @@ public class InstanceCreator {
 
   }
 
+
+  public DataSetInstance getSingleInstance() throws Exception {
+    final ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(dataSetLocation);
+    final Instances instance = dataSource.getDataSet();
+    final int classIndex = getClassIndex(instance);
+    instance.setClassIndex(classIndex);
+    return new DataSetInstance(dataSetLocation, instance);
+  }
 
   private int getClassIndex(final Instances instances) throws NoClassLabelFound {
     final List<Attribute> attributes = Collections.list(instances.enumerateAttributes());

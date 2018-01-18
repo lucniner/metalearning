@@ -1,4 +1,4 @@
-package at.hwl.machinelearning.ass3.metalearning.classification;
+package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
@@ -8,7 +8,7 @@ import weka.core.Instances;
 
 import java.util.concurrent.Callable;
 
-public abstract class AbstractClassifier implements Callable<ClassificationResult> {
+abstract class AbstractClassifier implements Callable<ClassificationResult> {
 
   final int trainTestSplitPercent;
   final Instances wekaInstace;

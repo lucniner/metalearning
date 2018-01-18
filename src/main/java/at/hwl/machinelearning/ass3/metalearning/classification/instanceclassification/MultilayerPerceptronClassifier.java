@@ -1,11 +1,14 @@
-package at.hwl.machinelearning.ass3.metalearning.classification;
+package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import weka.classifiers.Classifier;
 import weka.classifiers.functions.MultilayerPerceptron;
 
-public class MultilayerPerceptronClassifier extends AbstractClassifier {
+/**
+ * A Classifier that uses backpropagation to classify instances.
+ */
+class MultilayerPerceptronClassifier extends AbstractClassifier {
   MultilayerPerceptronClassifier(DataSetInstance instance, int trainTestSplitPercent) {
     super(instance, trainTestSplitPercent);
   }

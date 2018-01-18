@@ -1,4 +1,4 @@
-package at.hwl.machinelearning.ass3.metalearning.classification;
+package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationAccuracyResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
@@ -37,6 +37,7 @@ public class ClassificationRunner implements Callable<ClassificationAccuracyResu
     classifiers.add(new RandomForestClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
     classifiers.add(new REPTreeClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
     classifiers.add(new ZeroRClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
+    classifiers.add(new M5RulesClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
   }
 
   @Override

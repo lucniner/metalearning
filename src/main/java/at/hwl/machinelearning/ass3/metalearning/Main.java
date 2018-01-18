@@ -15,9 +15,10 @@ public class Main {
 
     final ExecutorService executorService = Executors.newFixedThreadPool(10);
     final InstanceCreator creator = new InstanceCreator(TRAINING_DATA_SETS_LOCATION);
+    final InstanceCreator metaResultCreator = new InstanceCreator(META_EXTRACTION_RESULT_FILE);
 
     try {
-      final MetaLearner metaLearner = new MetaLearner(executorService, creator, META_EXTRACTION_RESULT_FILE);
+      final MetaLearner metaLearner = new MetaLearner(executorService, creator, metaResultCreator, META_EXTRACTION_RESULT_FILE);
       metaLearner.learn();
     } catch (Exception e) {
       e.printStackTrace();
