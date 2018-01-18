@@ -13,10 +13,10 @@ public class MetaResultWriter {
   private static final String LINE_BREAK = "\n";
 
   private final Map<String, String> accuracyResults;
-  private final Map<String, List<Double>> featureResults;
+  private final Map<String, List<String>> featureResults;
   private final List<String> featureNames;
 
-  public MetaResultWriter(Map<String, String> accuracyResults, Map<String, List<Double>> featureResults, List<String> featureNames) {
+  public MetaResultWriter(Map<String, String> accuracyResults, Map<String, List<String>> featureResults, List<String> featureNames) {
     this.accuracyResults = accuracyResults;
     this.featureResults = featureResults;
     this.featureNames = featureNames;
@@ -42,7 +42,7 @@ public class MetaResultWriter {
 
 
   private void writeResults(final BufferedWriter writer) throws IOException {
-    for (final Map.Entry<String, List<Double>> entry : featureResults.entrySet()) {
+    for (final Map.Entry<String, List<String>> entry : featureResults.entrySet()) {
       final String classifier = accuracyResults.get(entry.getKey());
       final String featureValues = getFeatureValuesAsString(entry.getValue());
       final String result = featureValues.concat(",").concat(classifier);
@@ -53,8 +53,8 @@ public class MetaResultWriter {
   }
 
 
-  private String getFeatureValuesAsString(final List<Double> featurevalues) {
-    final List<String> featureValue = featurevalues.stream().map(String::valueOf).collect(Collectors.toList());
+  private String getFeatureValuesAsString(final List<String> featurevalues) {
+    final List<String> featureValue = featurevalues.stream().collect(Collectors.toList());
     return String.join(",", featureValue);
   }
 

@@ -1,5 +1,6 @@
-package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
+package at.hwl.machinelearning.ass3.metalearning.classification;
 
+import at.hwl.machinelearning.ass3.metalearning.classification.classifiers.IClassifyable;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import weka.classifiers.Classifier;
@@ -8,25 +9,35 @@ import weka.core.Instances;
 
 import java.util.concurrent.Callable;
 
-abstract class AbstractClassifier implements Callable<ClassificationResult> {
+class TrainTestSplitClassifier implements Callable<ClassificationResult> {
 
-  final int trainTestSplitPercent;
-  final Instances wekaInstace;
+  private final int trainTestSplitPercent;
+  private final IClassifyable classifier;
+  private final String classifierName;
+  private Instances wekaInstace;
 
-  AbstractClassifier(DataSetInstance instance, int trainTestSplitPercent) {
+
+  TrainTestSplitClassifier(DataSetInstance instance, int trainTestSplitPercent, IClassifyable classifier) {
 
     this.trainTestSplitPercent = trainTestSplitPercent;
+    this.classifier = classifier;
     wekaInstace = instance.getWekaInstance();
+    this.classifierName = classifier.getName();
   }
 
 
-  abstract Classifier getClassifier();
+  @Override
+  public ClassificationResult call() throws Exception {
+    wekaInstace = classifier.prepareInstance(wekaInstace);
+    final double accuracy = classify();
+    return new ClassificationResult(classifierName, accuracy);
+  }
 
-  double classify() throws Exception {
+  private double classify() throws Exception {
     final Instances training = getTrainingInstance();
     final Instances testing = getTestInstance();
     final Evaluation eval = new Evaluation(training);
-    final Classifier cls = getClassifier();
+    final Classifier cls = classifier.getClassifier();
 
     cls.buildClassifier(training);
     eval.evaluateModel(cls, testing);
@@ -47,5 +58,6 @@ abstract class AbstractClassifier implements Callable<ClassificationResult> {
   private int getTrainSize() {
     return (wekaInstace.numInstances() * trainTestSplitPercent / 100);
   }
+
 
 }

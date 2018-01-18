@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class FeatureExtractor implements Callable<FeaturePairs> {
+public class FeatureExtractorRunner implements Callable<FeaturePairs> {
 
   private final Collection<Callable<FeaturePair>> featureExtractors = new ArrayList<>();
   private final FeaturePairs featurePairs = new FeaturePairs();
@@ -22,7 +22,7 @@ public class FeatureExtractor implements Callable<FeaturePairs> {
   private final DataSetInstance instance;
 
 
-  public FeatureExtractor(ExecutorService executorService, DataSetInstance instance) {
+  public FeatureExtractorRunner(ExecutorService executorService, DataSetInstance instance) {
     this.executorService = executorService;
     this.instance = instance;
     this.initializeFeatureExtractors();
@@ -33,6 +33,7 @@ public class FeatureExtractor implements Callable<FeaturePairs> {
     featureExtractors.add(new NumClassFeatureExtractor(instance));
     featureExtractors.add(new NumFeaturesFeatureExtractor(instance));
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
+    featureExtractors.add(new DataSetNameExtractor(instance));
   }
 
   @Override

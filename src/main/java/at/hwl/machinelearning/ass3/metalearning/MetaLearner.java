@@ -1,9 +1,10 @@
 package at.hwl.machinelearning.ass3.metalearning;
 
-import at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification.ClassificationRunner;
+import at.hwl.machinelearning.ass3.metalearning.classification.MetaClassifierRunner;
+import at.hwl.machinelearning.ass3.metalearning.classification.TrainTestSplitClassificationRunner;
 import at.hwl.machinelearning.ass3.metalearning.datahandling.InstanceCreator;
 import at.hwl.machinelearning.ass3.metalearning.datahandling.MetaResultWriter;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.FeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.FeatureExtractorRunner;
 import at.hwl.machinelearning.ass3.metalearning.utils.*;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class MetaLearner {
 
   private final Map<String, String> bestClassifierPerDataSet = new HashMap<>();
-  private final Map<String, List<Double>> featureValuesPerDataSet = new HashMap<>();
+  private final Map<String, List<String>> featureValuesPerDataSet = new HashMap<>();
   private final List<String> featureNames = new LinkedList<>();
 
   private final ExecutorService executorService;
@@ -56,13 +57,13 @@ public class MetaLearner {
 
 
   private Future<FeaturePairs> calculateFeatures(final DataSetInstance instance) {
-    final FeatureExtractor extractor = new FeatureExtractor(executorService, instance);
+    final FeatureExtractorRunner extractor = new FeatureExtractorRunner(executorService, instance);
     return executorService.submit(extractor);
   }
 
 
   private Future<ClassificationAccuracyResult> calculateAccuracy(final DataSetInstance instance) {
-    final ClassificationRunner runner = new ClassificationRunner(executorService, instance);
+    final TrainTestSplitClassificationRunner runner = new TrainTestSplitClassificationRunner(executorService, instance);
     return executorService.submit(runner);
   }
 
@@ -73,7 +74,10 @@ public class MetaLearner {
 
   private void calculateMetaLearningAlgorithm() throws Exception {
     final DataSetInstance instance = metaResultCreator.getSingleInstance();
-    //TODO run cross validation and report performance of all classifiers
+    final MetaClassifierRunner runner = new MetaClassifierRunner(executorService, instance);
+    final Future<ClassificationAccuracyResult> future = executorService.submit(runner);
+    final ClassificationAccuracyResult result = future.get();
+    result.getAllClassificationResults().keySet().stream().forEach(System.out::println);
   }
 
 
@@ -89,7 +93,7 @@ public class MetaLearner {
   }
 
   private void writeFeatureResult(final DataSetInstance instance, FeaturePairs pairs) {
-    final List<Double> featureValues = pairs.getFeaturePairs().stream().map(FeaturePair::getFeatureValue).collect(Collectors.toList());
+    final List<String> featureValues = pairs.getFeaturePairs().stream().map(FeaturePair::getFeatureValue).collect(Collectors.toList());
     featureValuesPerDataSet.put(instance.getDataSetLocation(), featureValues);
   }
 }

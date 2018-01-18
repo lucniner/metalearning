@@ -1,5 +1,6 @@
-package at.hwl.machinelearning.ass3.metalearning.classification.instanceclassification;
+package at.hwl.machinelearning.ass3.metalearning.classification;
 
+import at.hwl.machinelearning.ass3.metalearning.classification.classifiers.*;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationAccuracyResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
@@ -12,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
-public class ClassificationRunner implements Callable<ClassificationAccuracyResult> {
+public class TrainTestSplitClassificationRunner implements Callable<ClassificationAccuracyResult> {
 
   private static final int TRAIN_TEST_SPLIT_PERCENT = 80;
   private final ClassificationAccuracyResult results = new ClassificationAccuracyResult();
@@ -23,7 +24,7 @@ public class ClassificationRunner implements Callable<ClassificationAccuracyResu
   private final ExecutorService executorService;
   private final DataSetInstance dataSetInstance;
 
-  public ClassificationRunner(ExecutorService executorService, DataSetInstance dataSetInstance) {
+  public TrainTestSplitClassificationRunner(ExecutorService executorService, DataSetInstance dataSetInstance) {
     this.executorService = executorService;
     this.dataSetInstance = dataSetInstance;
 
@@ -32,12 +33,11 @@ public class ClassificationRunner implements Callable<ClassificationAccuracyResu
 
 
   private void initializeClassifiers() {
-    classifiers.add(new KStarClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
-    classifiers.add(new MultilayerPerceptronClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
-    classifiers.add(new RandomForestClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
-    classifiers.add(new REPTreeClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
-    classifiers.add(new ZeroRClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
-    classifiers.add(new M5RulesClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new KStarClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new MultilayerPerceptronClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new RandomForestClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new REPTreeClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new ZeroRClassifier()));
   }
 
   @Override

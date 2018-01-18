@@ -58,8 +58,10 @@ public class InstanceCreator {
     for (final String location : dataSetLocations) {
       final ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(location);
       final Instances instance = dataSource.getDataSet();
+      final String instanceName = getInstanceName(location);
       final int classIndex = getClassIndex(instance);
       instance.setClassIndex(classIndex);
+      instance.setRelationName(instanceName);
       instances.addDataSet(new DataSetInstance(location, instance));
     }
 
@@ -69,9 +71,15 @@ public class InstanceCreator {
   public DataSetInstance getSingleInstance() throws Exception {
     final ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(dataSetLocation);
     final Instances instance = dataSource.getDataSet();
+    final String instanceName = getInstanceName(dataSetLocation);
     final int classIndex = getClassIndex(instance);
     instance.setClassIndex(classIndex);
+    instance.setRelationName(instanceName);
     return new DataSetInstance(dataSetLocation, instance);
+  }
+
+  private String getInstanceName(final String location) {
+    return location.substring(location.lastIndexOf("/") + 1, location.lastIndexOf("."));
   }
 
   private int getClassIndex(final Instances instances) throws NoClassLabelFound {

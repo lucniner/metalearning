@@ -3,9 +3,9 @@ package at.hwl.machinelearning.ass3.metalearning.utils;
 public class FeaturePair {
 
   private final String featureName;
-  private final Double featureValue;
+  private final String featureValue;
 
-  public FeaturePair(String featureName, Double featureValue) {
+  public FeaturePair(String featureName, String featureValue) {
     this.featureName = featureName;
     this.featureValue = featureValue;
   }
@@ -14,7 +14,7 @@ public class FeaturePair {
     return featureName;
   }
 
-  public Double getFeatureValue() {
+  public String getFeatureValue() {
     return featureValue;
   }
 

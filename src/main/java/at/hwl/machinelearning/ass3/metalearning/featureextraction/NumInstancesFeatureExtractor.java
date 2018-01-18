@@ -13,7 +13,7 @@ public class NumInstancesFeatureExtractor extends AbstractFeatureExtractor {
   @Override
   public FeaturePair call() {
     final double numberOfInstances = extractNumberOfInstances();
-    return new FeaturePair(SharedConstants.NUMBER_OF_INSTANCES, numberOfInstances);
+    return new FeaturePair(SharedConstants.NUMBER_OF_INSTANCES, String.valueOf(numberOfInstances));
   }
 
   private double extractNumberOfInstances() {

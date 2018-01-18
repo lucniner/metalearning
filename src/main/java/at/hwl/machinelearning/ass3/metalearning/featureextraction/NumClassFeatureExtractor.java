@@ -16,7 +16,7 @@ class NumClassFeatureExtractor extends AbstractFeatureExtractor {
   @Override
   public FeaturePair call() {
     final double numberOfClasses = extractNumberOfClasses();
-    return new FeaturePair(SharedConstants.NUMBER_OF_CLASSES, numberOfClasses);
+    return new FeaturePair(SharedConstants.NUMBER_OF_CLASSES, String.valueOf(numberOfClasses));
   }
 
 
