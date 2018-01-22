@@ -38,6 +38,8 @@ public class TrainTestSplitClassificationRunner implements Callable<Classificati
     classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new RandomForestClassifier()));
     classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new REPTreeClassifier()));
     classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new ZeroRClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new RandomizedFilterClassifier()));
+    classifiers.add(new TrainTestSplitClassifier(dataSetInstance, TRAIN_TEST_SPLIT_PERCENT, new BayesNetClassifier()));
   }
 
   @Override

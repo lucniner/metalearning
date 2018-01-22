@@ -1,14 +1,14 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.SharedConstants;
 import weka.core.Instances;
 
-class NumFeaturesFeatureExtractor extends AbstractFeatureExtractor {
+public class NumFeaturesFeatureExtractor extends AbstractFeatureExtractor {
 
 
-  protected NumFeaturesFeatureExtractor(DataSetInstance instance) {
+  public NumFeaturesFeatureExtractor(DataSetInstance instance) {
     super(instance);
   }
 

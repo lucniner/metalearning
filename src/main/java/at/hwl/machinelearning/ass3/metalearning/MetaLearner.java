@@ -77,7 +77,7 @@ public class MetaLearner {
     final MetaClassifierRunner runner = new MetaClassifierRunner(executorService, instance);
     final Future<ClassificationAccuracyResult> future = executorService.submit(runner);
     final ClassificationAccuracyResult result = future.get();
-    result.getAllClassificationResults().keySet().stream().forEach(System.out::println);
+    result.getAllClassificationResults().entrySet().forEach(System.out::println);
   }
 
 

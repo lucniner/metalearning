@@ -1,12 +1,12 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 
-class DataSetNameExtractor extends AbstractFeatureExtractor {
+public class DataSetNameExtractor extends AbstractFeatureExtractor {
 
 
-  DataSetNameExtractor(DataSetInstance instance) {
+  public DataSetNameExtractor(DataSetInstance instance) {
     super(instance);
   }
 
