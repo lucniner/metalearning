@@ -4,7 +4,7 @@ import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.Dat
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumClassFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumMissingValuesFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.ProportionMissingValuesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePairs;
@@ -39,7 +39,7 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new NumClassFeatureExtractor(instance));
     featureExtractors.add(new NumFeaturesFeatureExtractor(instance));
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
-    featureExtractors.add(new NumMissingValuesFeatureExtractor(instance));
+    featureExtractors.add(new ProportionMissingValuesFeatureExtractor(instance));
   }
 
   @Override

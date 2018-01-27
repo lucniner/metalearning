@@ -7,20 +7,20 @@ import java.util.Enumeration;
 import weka.core.Attribute;
 import weka.core.Instances;
 
-public class NumMissingValuesFeatureExtractor extends AbstractFeatureExtractor {
+public class ProportionMissingValuesFeatureExtractor extends AbstractFeatureExtractor {
 
-  public NumMissingValuesFeatureExtractor(
+  public ProportionMissingValuesFeatureExtractor(
       DataSetInstance instance) {
     super(instance);
   }
 
   @Override
   public FeaturePair call() {
-    final int numberOfMissingValues = extractNumberOfMissingValues();
-    return new FeaturePair(SharedConstants.NUMBER_OF_MISSING_VALUES, String.valueOf(numberOfMissingValues));
+    final double numberOfMissingValues = extractProportionOfMissingValues();
+    return new FeaturePair(SharedConstants.PROPORTION_OF_MISSING_VALUES, String.valueOf(numberOfMissingValues));
   }
 
-  private int extractNumberOfMissingValues() {
+  private double extractProportionOfMissingValues() {
     final Instances wekaInstance = instance.getWekaInstance();
     final Enumeration<Attribute> attributes = wekaInstance.enumerateAttributes();
 
@@ -30,6 +30,7 @@ public class NumMissingValuesFeatureExtractor extends AbstractFeatureExtractor {
           .attributeStats(attributes.nextElement().index()).missingCount;
     }
 
-    return missingValuesCount;
+    // relative: #missingvalues/(#features*#instances)
+    return (double)missingValuesCount / ((double)wekaInstance.numAttributes() * (double)wekaInstance.numInstances());
   }
 }
