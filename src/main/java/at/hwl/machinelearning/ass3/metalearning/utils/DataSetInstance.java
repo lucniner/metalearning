@@ -17,6 +17,6 @@ public class DataSetInstance {
   }
 
   public Instances getWekaInstance() {
-    return wekaInstance;
+    return new Instances(wekaInstance);
   }
 }

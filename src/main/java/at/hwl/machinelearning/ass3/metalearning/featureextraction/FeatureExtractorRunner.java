@@ -1,6 +1,7 @@
 package at.hwl.machinelearning.ass3.metalearning.featureextraction;
 
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.DataSetNameExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.EntropyFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumClassFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
@@ -40,6 +41,7 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new NumFeaturesFeatureExtractor(instance));
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
     featureExtractors.add(new ProportionMissingValuesFeatureExtractor(instance));
+    featureExtractors.add(new EntropyFeatureExtractor(instance));
   }
 
   @Override
