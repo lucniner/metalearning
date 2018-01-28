@@ -12,6 +12,10 @@ import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.des
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.SkewnessStandardDeviationFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.VarianceMeanFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.VarianceStandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.StandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.StandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePairs;
@@ -47,6 +51,8 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
     featureExtractors.add(new ProportionMissingValuesFeatureExtractor(instance));
     featureExtractors.add(new EntropyFeatureExtractor(instance));
+    featureExtractors.add(new StandardDeviationFeatureExtractor(instance));
+    featureExtractors.add(new VarianceFeatureExtractor(instance));
     featureExtractors.add(new VarianceMeanFeatureExtractor(instance));
     featureExtractors.add(new VarianceStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new SkewnessMeanFeatureExtractor(instance));
