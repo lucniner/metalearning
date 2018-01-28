@@ -17,7 +17,8 @@ public class ProportionMissingValuesFeatureExtractor extends AbstractFeatureExtr
   @Override
   public FeaturePair call() {
     final double numberOfMissingValues = extractProportionOfMissingValues();
-    return new FeaturePair(SharedConstants.PROPORTION_OF_MISSING_VALUES, String.valueOf(numberOfMissingValues));
+    return new FeaturePair(SharedConstants.PROPORTION_OF_MISSING_VALUES,
+        String.valueOf(numberOfMissingValues));
   }
 
   private double extractProportionOfMissingValues() {
@@ -31,6 +32,7 @@ public class ProportionMissingValuesFeatureExtractor extends AbstractFeatureExtr
     }
 
     // relative: #missingvalues/(#features*#instances)
-    return (double)missingValuesCount / ((double)wekaInstance.numAttributes() * (double)wekaInstance.numInstances());
+    return (double) missingValuesCount / ((double) wekaInstance.numAttributes()
+        * (double) wekaInstance.numInstances());
   }
 }
