@@ -7,6 +7,7 @@ import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.Num
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.ProportionMissingValuesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.SkewnessMeanFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.SkewnessStandardDeviationFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceMeanFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceStandardDeviationFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
@@ -47,6 +48,7 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new VarianceMeanFeatureExtractor(instance));
     featureExtractors.add(new VarianceStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new SkewnessMeanFeatureExtractor(instance));
+    featureExtractors.add(new SkewnessStandardDeviationFeatureExtractor(instance));
   }
 
   @Override
