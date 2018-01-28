@@ -48,10 +48,11 @@ public class InstanceCreator {
     final File[] dataSetFiles = new File(path).listFiles();
 
     if (dataSetFiles != null) {
-      final List<String> result =
-          Arrays.stream(dataSetFiles).map(File::getPath).collect(Collectors.toList());
+      //final List<String> result =
+      //    Arrays.stream(dataSetFiles).map(File::getPath).collect(Collectors.toList());
       // Remove the following line and return the previous one if you want to use all data sets
-      return result.subList(0, 3);
+      //return result.subList(0, 3);
+      return Arrays.stream(dataSetFiles).map(File::getPath).collect(Collectors.toList());
     } else {
       return Collections.emptyList();
     }

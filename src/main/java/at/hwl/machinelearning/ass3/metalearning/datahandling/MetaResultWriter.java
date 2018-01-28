@@ -4,9 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MetaResultWriter {
 
@@ -16,7 +16,10 @@ public class MetaResultWriter {
   private final Map<String, List<String>> featureResults;
   private final List<String> featureNames;
 
-  public MetaResultWriter(Map<String, String> accuracyResults, Map<String, List<String>> featureResults, List<String> featureNames) {
+  public MetaResultWriter(
+      Map<String, String> accuracyResults,
+      Map<String, List<String>> featureResults,
+      List<String> featureNames) {
     this.accuracyResults = accuracyResults;
     this.featureResults = featureResults;
     this.featureNames = featureNames;
@@ -40,7 +43,6 @@ public class MetaResultWriter {
     writer.write(LINE_BREAK);
   }
 
-
   private void writeResults(final BufferedWriter writer) throws IOException {
     for (final Map.Entry<String, List<String>> entry : featureResults.entrySet()) {
       final String classifier = accuracyResults.get(entry.getKey());
@@ -48,15 +50,11 @@ public class MetaResultWriter {
       final String result = featureValues.concat(",").concat(classifier);
       writer.write(result);
       writer.write(LINE_BREAK);
-
     }
   }
 
-
   private String getFeatureValuesAsString(final List<String> featurevalues) {
-    final List<String> featureValue = featurevalues.stream().collect(Collectors.toList());
+    final List<String> featureValue = new ArrayList<>(featurevalues);
     return String.join(",", featureValue);
   }
-
-
 }

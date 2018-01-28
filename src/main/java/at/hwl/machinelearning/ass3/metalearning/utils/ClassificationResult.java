@@ -5,7 +5,7 @@ public class ClassificationResult {
   private final String classifier;
   private final double accuracy;
 
-  public ClassificationResult(String classifier, double accuracy) {
+  public ClassificationResult(final String classifier, double accuracy) {
     this.classifier = classifier;
     this.accuracy = accuracy;
   }

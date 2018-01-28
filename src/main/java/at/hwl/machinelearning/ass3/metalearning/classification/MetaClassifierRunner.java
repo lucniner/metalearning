@@ -6,7 +6,6 @@ import at.hwl.machinelearning.ass3.metalearning.classification.classifiers.Rando
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationAccuracyResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,8 +39,8 @@ public class MetaClassifierRunner implements Callable<ClassificationAccuracyResu
     return calculateClassificationResult();
   }
 
-
-  private ClassificationAccuracyResult calculateClassificationResult() throws ExecutionException, InterruptedException {
+  private ClassificationAccuracyResult calculateClassificationResult()
+      throws ExecutionException, InterruptedException {
     final List<Future<ClassificationResult>> futures = executorService.invokeAll(classifiers);
     for (Future<ClassificationResult> c : futures) {
       results.addResult(c.get());

@@ -1,8 +1,6 @@
 package at.hwl.machinelearning.ass3.metalearning;
 
-
 import at.hwl.machinelearning.ass3.metalearning.datahandling.InstanceCreator;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

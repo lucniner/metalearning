@@ -5,8 +5,11 @@ import at.hwl.machinelearning.ass3.metalearning.classification.TrainTestSplitCla
 import at.hwl.machinelearning.ass3.metalearning.datahandling.InstanceCreator;
 import at.hwl.machinelearning.ass3.metalearning.datahandling.MetaResultWriter;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.FeatureExtractorRunner;
-import at.hwl.machinelearning.ass3.metalearning.utils.*;
-
+import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationAccuracyResult;
+import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
+import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstances;
+import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
+import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePairs;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,8 +31,11 @@ public class MetaLearner {
   private final InstanceCreator metaResultCreator;
   private final String metaExtractionResultFile;
 
-
-  public MetaLearner(ExecutorService executorService, InstanceCreator instanceCreator, InstanceCreator metaResultCreator, String metaExtractionResultFile) {
+  MetaLearner(
+      ExecutorService executorService,
+      InstanceCreator instanceCreator,
+      InstanceCreator metaResultCreator,
+      String metaExtractionResultFile) {
     this.executorService = executorService;
     this.instanceCreator = instanceCreator;
     this.metaResultCreator = metaResultCreator;
@@ -44,7 +50,8 @@ public class MetaLearner {
     calculateMetaLearningAlgorithm();
   }
 
-  private void calculate(final List<DataSetInstance> instances) throws ExecutionException, InterruptedException {
+  private void calculate(final List<DataSetInstance> instances)
+      throws ExecutionException, InterruptedException {
     for (final DataSetInstance instance : instances) {
       final Future<FeaturePairs> pairs = calculateFeatures(instance);
       final Future<ClassificationAccuracyResult> result = calculateAccuracy(instance);
@@ -55,20 +62,20 @@ public class MetaLearner {
     }
   }
 
-
   private Future<FeaturePairs> calculateFeatures(final DataSetInstance instance) {
     final FeatureExtractorRunner extractor = new FeatureExtractorRunner(executorService, instance);
     return executorService.submit(extractor);
   }
 
-
   private Future<ClassificationAccuracyResult> calculateAccuracy(final DataSetInstance instance) {
-    final TrainTestSplitClassificationRunner runner = new TrainTestSplitClassificationRunner(executorService, instance);
+    final TrainTestSplitClassificationRunner runner =
+        new TrainTestSplitClassificationRunner(executorService, instance);
     return executorService.submit(runner);
   }
 
   private void writeNewDataSet() throws IOException {
-    final MetaResultWriter writer = new MetaResultWriter(bestClassifierPerDataSet, featureValuesPerDataSet, featureNames);
+    final MetaResultWriter writer =
+        new MetaResultWriter(bestClassifierPerDataSet, featureValuesPerDataSet, featureNames);
     writer.writeResultsToFile(metaExtractionResultFile);
   }
 
@@ -80,20 +87,30 @@ public class MetaLearner {
     result.getAllClassificationResults().entrySet().forEach(System.out::println);
   }
 
-
   private void writeFeatureNamesIfNeeded(final FeaturePairs pairs) {
     if (featureNames.isEmpty()) {
-      final List<String> featureKeys = pairs.getFeaturePairs().stream().map(FeaturePair::getFeatureName).collect(Collectors.toList());
+      final List<String> featureKeys =
+          pairs
+              .getFeaturePairs()
+              .stream()
+              .map(FeaturePair::getFeatureName)
+              .collect(Collectors.toList());
       featureNames.addAll(featureKeys);
     }
   }
 
-  private void writeAccuracyResult(final DataSetInstance instance, ClassificationAccuracyResult result) {
+  private void writeAccuracyResult(
+      final DataSetInstance instance, ClassificationAccuracyResult result) {
     bestClassifierPerDataSet.put(instance.getDataSetLocation(), result.getBestClassifier());
   }
 
   private void writeFeatureResult(final DataSetInstance instance, FeaturePairs pairs) {
-    final List<String> featureValues = pairs.getFeaturePairs().stream().map(FeaturePair::getFeatureValue).collect(Collectors.toList());
+    final List<String> featureValues =
+        pairs
+            .getFeaturePairs()
+            .stream()
+            .map(FeaturePair::getFeatureValue)
+            .collect(Collectors.toList());
     featureValuesPerDataSet.put(instance.getDataSetLocation(), featureValues);
   }
 }

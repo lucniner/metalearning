@@ -13,22 +13,20 @@ class TrainTestSplitClassifier implements Callable<ClassificationResult> {
   private final int trainTestSplitPercent;
   private final IClassifiable classifier;
   private final String classifierName;
-  private Instances wekaInstace;
+  private Instances wekaInstance;
 
-
-  TrainTestSplitClassifier(DataSetInstance instance, int trainTestSplitPercent,
-      IClassifiable classifier) {
+  TrainTestSplitClassifier(
+      DataSetInstance instance, int trainTestSplitPercent, IClassifiable classifier) {
 
     this.trainTestSplitPercent = trainTestSplitPercent;
     this.classifier = classifier;
-    wekaInstace = instance.getWekaInstance();
+    wekaInstance = instance.getWekaInstance();
     this.classifierName = classifier.getName();
   }
 
-
   @Override
   public ClassificationResult call() throws Exception {
-    wekaInstace = classifier.prepareInstance(wekaInstace);
+    wekaInstance = classifier.prepareInstance(wekaInstance);
     final double accuracy = classify();
     return new ClassificationResult(classifierName, accuracy);
   }
@@ -43,21 +41,18 @@ class TrainTestSplitClassifier implements Callable<ClassificationResult> {
     eval.evaluateModel(cls, testing);
 
     return eval.pctCorrect();
-
   }
 
   private Instances getTrainingInstance() {
-    return new Instances(wekaInstace, 0, getTrainSize());
+    return new Instances(wekaInstance, 0, getTrainSize());
   }
 
   private Instances getTestInstance() {
-    final int toCopy = wekaInstace.numInstances() - getTrainSize();
-    return new Instances(wekaInstace, getTrainSize(), toCopy);
+    final int toCopy = wekaInstance.numInstances() - getTrainSize();
+    return new Instances(wekaInstance, getTrainSize(), toCopy);
   }
 
   private int getTrainSize() {
-    return (wekaInstace.numInstances() * trainTestSplitPercent / 100);
+    return (wekaInstance.numInstances() * trainTestSplitPercent / 100);
   }
-
-
 }
