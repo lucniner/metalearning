@@ -8,10 +8,11 @@ public class SharedConstants {
   public static final String PROPORTION_OF_MISSING_VALUES = "proportion_of_missing_values";
   public static final String ENTROPY = "entropy";
   public static final String CLASS_LABEL = "class";
-
+  public static final String VARIANCE_MEAN = "variance_mean";
+  public static final String VARIANCE_STD = "variance_std";
 
   public static final String[] POSSIBLE_CLASS_LABELS = {
-          "class",
+      CLASS_LABEL,
           "label"
   };
 
