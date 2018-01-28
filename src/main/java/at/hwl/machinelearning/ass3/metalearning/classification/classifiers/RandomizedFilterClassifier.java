@@ -4,7 +4,7 @@ import weka.classifiers.Classifier;
 import weka.classifiers.meta.RandomizableFilteredClassifier;
 import weka.core.Instances;
 
-public class RandomizedFilterClassifier implements IClassifyable {
+public class RandomizedFilterClassifier implements IClassifiable {
   @Override
   public Classifier getClassifier() {
     return new RandomizableFilteredClassifier();

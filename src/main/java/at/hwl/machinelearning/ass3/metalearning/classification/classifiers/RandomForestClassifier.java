@@ -7,7 +7,7 @@ import weka.core.Instances;
 /**
  * Class for constructing a forest of random trees.
  */
-public class RandomForestClassifier implements IClassifyable {
+public class RandomForestClassifier implements IClassifiable {
 
   @Override
   public Classifier getClassifier() {

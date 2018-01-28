@@ -1,23 +1,23 @@
 package at.hwl.machinelearning.ass3.metalearning.classification;
 
-import at.hwl.machinelearning.ass3.metalearning.classification.classifiers.IClassifyable;
+import at.hwl.machinelearning.ass3.metalearning.classification.classifiers.IClassifiable;
 import at.hwl.machinelearning.ass3.metalearning.utils.ClassificationResult;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
+import java.util.concurrent.Callable;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.core.Instances;
 
-import java.util.concurrent.Callable;
-
 class TrainTestSplitClassifier implements Callable<ClassificationResult> {
 
   private final int trainTestSplitPercent;
-  private final IClassifyable classifier;
+  private final IClassifiable classifier;
   private final String classifierName;
   private Instances wekaInstace;
 
 
-  TrainTestSplitClassifier(DataSetInstance instance, int trainTestSplitPercent, IClassifyable classifier) {
+  TrainTestSplitClassifier(DataSetInstance instance, int trainTestSplitPercent,
+      IClassifiable classifier) {
 
     this.trainTestSplitPercent = trainTestSplitPercent;
     this.classifier = classifier;

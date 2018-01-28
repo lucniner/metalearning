@@ -5,7 +5,7 @@ import weka.classifiers.Classifier;
 import weka.classifiers.bayes.BayesNet;
 import weka.core.Instances;
 
-public class BayesNetClassifier implements IClassifyable {
+public class BayesNetClassifier implements IClassifiable {
 
 
   @Override
@@ -16,7 +16,7 @@ public class BayesNetClassifier implements IClassifyable {
   @Override
   public Instances prepareInstance(final Instances instances) {
     final NumericToNominalPreprocessor preprocessor = new NumericToNominalPreprocessor(instances);
-    return preprocessor.preprocess();
+    return preprocessor.preProcess();
   }
 
   @Override

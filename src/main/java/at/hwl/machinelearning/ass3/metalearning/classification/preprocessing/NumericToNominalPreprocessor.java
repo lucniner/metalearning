@@ -1,20 +1,18 @@
 package at.hwl.machinelearning.ass3.metalearning.classification.preprocessing;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.SharedConstants;
-import weka.core.Attribute;
-import weka.core.Instance;
-import weka.core.Instances;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import weka.core.Attribute;
+import weka.core.Instance;
+import weka.core.Instances;
 
 public class NumericToNominalPreprocessor {
 
   private final Map<Double, String> classMapping = new HashMap<>();
   private final Instances instances;
-
 
   public NumericToNominalPreprocessor(Instances instances) {
     this.instances = instances;
@@ -28,7 +26,7 @@ public class NumericToNominalPreprocessor {
     }
   }
 
-  public Instances preprocess() {
+  public Instances preProcess() {
     addNominalAttributeToInstance();
     addNominalValuesToInstances();
     updateClassIndex();
@@ -37,7 +35,8 @@ public class NumericToNominalPreprocessor {
 
   private void addNominalAttributeToInstance() {
     final List<String> nominalClassLabels = new ArrayList<>(classMapping.values());
-    instances.insertAttributeAt(new Attribute("nominal_class", nominalClassLabels), instances.numAttributes());
+    instances.insertAttributeAt(
+        new Attribute("nominal_class", nominalClassLabels), instances.numAttributes());
   }
 
   private void addNominalValuesToInstances() {
@@ -51,6 +50,5 @@ public class NumericToNominalPreprocessor {
 
   private void updateClassIndex() {
     instances.setClassIndex(instances.numAttributes() - 1);
-
   }
 }

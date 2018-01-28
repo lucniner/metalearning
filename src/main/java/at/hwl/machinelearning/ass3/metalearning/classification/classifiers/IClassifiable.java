@@ -3,7 +3,7 @@ package at.hwl.machinelearning.ass3.metalearning.classification.classifiers;
 import weka.classifiers.Classifier;
 import weka.core.Instances;
 
-public interface IClassifyable {
+public interface IClassifiable {
 
   Classifier getClassifier();
 

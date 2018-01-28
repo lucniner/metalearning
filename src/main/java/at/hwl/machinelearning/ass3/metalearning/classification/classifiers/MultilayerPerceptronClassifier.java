@@ -7,7 +7,7 @@ import weka.core.Instances;
 /**
  * A Classifier that uses backpropagation to classify instances.
  */
-public class MultilayerPerceptronClassifier implements IClassifyable {
+public class MultilayerPerceptronClassifier implements IClassifiable {
 
   @Override
   public Classifier getClassifier() {

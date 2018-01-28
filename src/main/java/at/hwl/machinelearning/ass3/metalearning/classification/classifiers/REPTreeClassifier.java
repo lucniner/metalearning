@@ -7,7 +7,7 @@ import weka.core.Instances;
 /**
  * Fast decision tree learner. Builds a decision/regression tree using information gain/variance and prunes it using reduced-error pruning (with backfitting). Only sorts values for numeric attributes once. Missing values are dealt with by splitting the corresponding instances into pieces
  */
-public class REPTreeClassifier implements IClassifyable {
+public class REPTreeClassifier implements IClassifiable {
 
   @Override
   public Classifier getClassifier() {
