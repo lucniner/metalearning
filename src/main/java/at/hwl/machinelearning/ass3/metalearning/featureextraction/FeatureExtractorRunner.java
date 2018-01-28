@@ -6,10 +6,12 @@ import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.Num
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.ProportionMissingValuesFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.SkewnessMeanFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.SkewnessStandardDeviationFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceMeanFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.VarianceStandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.KurtosisMeanFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.KurtosisStandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.SkewnessMeanFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.SkewnessStandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.VarianceMeanFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.VarianceStandardDeviationFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePairs;
@@ -49,6 +51,8 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new VarianceStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new SkewnessMeanFeatureExtractor(instance));
     featureExtractors.add(new SkewnessStandardDeviationFeatureExtractor(instance));
+    featureExtractors.add(new KurtosisMeanFeatureExtractor(instance));
+    featureExtractors.add(new KurtosisStandardDeviationFeatureExtractor(instance));
   }
 
   @Override

@@ -12,6 +12,8 @@ public class SharedConstants {
   public static final String VARIANCE_STD = "variance_std";
   public static final String SKEWNESS_MEAN = "skewness_mean";
   public static final String SKEWNESS_STD = "skewness_std";
+  public static final String KURTOSIS_MEAN = "kurtosis_mean";
+  public static final String KURTOSIS_STD = "kurtosis_std";
 
   public static final String[] POSSIBLE_CLASS_LABELS = {
       CLASS_LABEL,

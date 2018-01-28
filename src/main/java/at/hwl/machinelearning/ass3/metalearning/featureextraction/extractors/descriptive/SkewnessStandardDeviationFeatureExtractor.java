@@ -1,4 +1,4 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
@@ -17,7 +17,8 @@ import weka.core.Instances;
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SkewnessStandardDeviationFeatureExtractor extends AbstractFeatureExtractor {
+public class SkewnessStandardDeviationFeatureExtractor extends
+    DescriptiveStatisticsFeatureExtractor {
 
   public SkewnessStandardDeviationFeatureExtractor(final DataSetInstance instance) {
     super(instance);
@@ -31,32 +32,15 @@ public class SkewnessStandardDeviationFeatureExtractor extends AbstractFeatureEx
   @Override
   public FeaturePair call() {
     final Instances instances = instance.getWekaInstance();
-    final DescriptiveStatistics skewnessList = new DescriptiveStatistics();
+    final DescriptiveStatistics skewnessValues = new DescriptiveStatistics();
     Collections.list(instances.enumerateAttributes())
         .stream()
         .filter(Attribute::isNumeric)
-        .map(attribute -> attributeSkewness(instances, attribute))
+        .map(attribute -> descriptiveStatisticsUtil.createFromAttribute(instances, attribute))
         .mapToDouble(DescriptiveStatistics::getSkewness)
         .filter(Double::isFinite)
-        .forEach(skewnessList::addValue);
-    final double std = skewnessList.getStandardDeviation();
+        .forEach(skewnessValues::addValue);
+    final double std = skewnessValues.getStandardDeviation();
     return new FeaturePair(SharedConstants.SKEWNESS_STD, String.valueOf(std));
-  }
-
-  private DescriptiveStatistics attributeSkewness(
-      final Instances instances, final Attribute attribute) {
-    final DescriptiveStatistics statistics = new DescriptiveStatistics();
-    Collections.list(instances.enumerateInstances())
-        .stream()
-        .map(instance1 -> getDoubleValue(instance1.value(attribute)))
-        .forEach(statistics::addValue);
-    return statistics;
-  }
-
-  private double getDoubleValue(final double value) {
-    if (!Double.isFinite(value)) {
-      return 0;
-    }
-    return value;
   }
 }

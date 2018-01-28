@@ -1,4 +1,4 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive;
 
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
@@ -12,15 +12,16 @@ import weka.core.Instances;
 /**
  * <h4>About this class</h4>
  *
- * <p>Description
+ * <p>Description</p>
  *
  * @author Daniel Fuevesi
  * @version 1.0.0
  * @since 1.0.0
  */
-public class SkewnessMeanFeatureExtractor extends AbstractFeatureExtractor {
+public class KurtosisMeanFeatureExtractor extends DescriptiveStatisticsFeatureExtractor {
 
-  public SkewnessMeanFeatureExtractor(final DataSetInstance instance) {
+  public KurtosisMeanFeatureExtractor(
+      final DataSetInstance instance) {
     super(instance);
   }
 
@@ -33,37 +34,19 @@ public class SkewnessMeanFeatureExtractor extends AbstractFeatureExtractor {
   public FeaturePair call() {
     final Instances instances = instance.getWekaInstance();
     final AtomicInteger counter = new AtomicInteger(0);
-    final double skewnessSum =
+    final double kurtosisSum =
         Collections.list(instances.enumerateAttributes())
             .stream()
             .filter(Attribute::isNumeric)
-            .map(attribute -> attributeSkewness(instances, attribute))
-            .mapToDouble(DescriptiveStatistics::getSkewness)
+            .map(attribute -> descriptiveStatisticsUtil.createFromAttribute(instances, attribute))
+            .mapToDouble(DescriptiveStatistics::getKurtosis)
             .peek(operand -> counter.incrementAndGet())
             .filter(Double::isFinite)
             .sum();
     if (counter.get() == 0) {
       counter.incrementAndGet();
     }
-    final double skewnessMean = skewnessSum / counter.get();
-    return new FeaturePair(SharedConstants.SKEWNESS_MEAN, String.valueOf(skewnessMean));
-  }
-
-  private DescriptiveStatistics attributeSkewness(final Instances instances,
-      final Attribute attribute) {
-    final DescriptiveStatistics statistics = new DescriptiveStatistics();
-    Collections.list(instances.enumerateInstances())
-        .stream()
-        .map(
-            instance1 -> getDoubleValue(instance1.value(attribute)))
-        .forEach(statistics::addValue);
-    return statistics;
-  }
-
-  private double getDoubleValue(final double value) {
-    if (!Double.isFinite(value)) {
-      return 0;
-    }
-    return value;
+    final double kurtosisMean = kurtosisSum / counter.get();
+    return new FeaturePair(SharedConstants.KURTOSIS_MEAN, String.valueOf(kurtosisMean));
   }
 }
