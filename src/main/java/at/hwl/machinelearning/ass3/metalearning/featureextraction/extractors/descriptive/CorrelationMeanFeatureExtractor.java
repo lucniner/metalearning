@@ -11,6 +11,8 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import weka.core.Instances;
 
 /**
+ *
+ *
  * <h4>About this class</h4>
  *
  * <p>Description
@@ -20,6 +22,8 @@ import weka.core.Instances;
  * @since 1.0.0
  */
 public class CorrelationMeanFeatureExtractor extends DescriptiveStatisticsFeatureExtractor {
+
+  private final PearsonsCorrelation correlation = new PearsonsCorrelation();
 
   public CorrelationMeanFeatureExtractor(final DataSetInstance instance) {
     super(instance);
@@ -49,12 +53,19 @@ public class CorrelationMeanFeatureExtractor extends DescriptiveStatisticsFeatur
       final int attributeIndex, final Map<Integer, double[]> attributeValuesMap) {
     final double[] values = attributeValuesMap.get(attributeIndex);
     final DescriptiveStatistics statistics = new DescriptiveStatistics();
-    final PearsonsCorrelation correlation = new PearsonsCorrelation();
     attributeValuesMap
         .values()
         .stream()
-        .mapToDouble(otherColumn -> correlation.correlation(values, otherColumn))
+        .mapToDouble(otherColumn -> correlation(values, otherColumn))
         .forEach(statistics::addValue);
     return statistics.getMean();
+  }
+
+  private double correlation(double[] attribute1, double[] attribute2) {
+    final double result = correlation.correlation(attribute1, attribute2);
+    if (!Double.isFinite(result)) {
+      return 0;
+    }
+    return result;
   }
 }
