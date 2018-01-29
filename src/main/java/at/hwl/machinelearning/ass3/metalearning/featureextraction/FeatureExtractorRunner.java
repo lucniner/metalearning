@@ -1,7 +1,7 @@
 package at.hwl.machinelearning.ass3.metalearning.featureextraction;
 
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.DataSetNameExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.EntropyFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.modelbased.REPTreeSizeFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumClassFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
@@ -52,13 +52,13 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new ProportionMissingValuesFeatureExtractor(instance));
     featureExtractors.add(new EntropyFeatureExtractor(instance));
     featureExtractors.add(new StandardDeviationFeatureExtractor(instance));
-    featureExtractors.add(new VarianceFeatureExtractor(instance));
     featureExtractors.add(new VarianceMeanFeatureExtractor(instance));
     featureExtractors.add(new VarianceStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new SkewnessMeanFeatureExtractor(instance));
     featureExtractors.add(new SkewnessStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new KurtosisMeanFeatureExtractor(instance));
     featureExtractors.add(new KurtosisStandardDeviationFeatureExtractor(instance));
+    featureExtractors.add(new REPTreeSizeFeatureExtractor(instance));
     featureExtractors.add(new CorrelationMeanFeatureExtractor(instance));
     featureExtractors.add(new CorrelationStandardDeviationFeatureExtractor(instance));
   }

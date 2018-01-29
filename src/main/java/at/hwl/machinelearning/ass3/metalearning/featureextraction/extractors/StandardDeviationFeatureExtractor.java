@@ -20,7 +20,7 @@ public class StandardDeviationFeatureExtractor extends AbstractFeatureExtractor 
   @Override
   public FeaturePair call() {
     final double standardDeviation = extractStandardDeviation();
-    return new FeaturePair(SharedConstants.STANDARD_DEVIATION, String.valueOf(standardDeviation));
+    return new FeaturePair(SharedConstants.STANDARD_DEVIATION_MEAN, String.valueOf(standardDeviation));
   }
 
   private double extractStandardDeviation() {

@@ -32,12 +32,7 @@ public class EntropyFeatureExtractor extends AbstractFeatureExtractor {
       final double[] instanceValues = instance.toDoubleArray();
       final double classValue = instanceValues[wekaInstance.classIndex()];
 
-      final Integer count = instancePerClass.get(classValue);
-      if (count == null) {
-        instancePerClass.put(classValue, 1);
-      } else {
-        instancePerClass.put(classValue, count + 1);
-      }
+      instancePerClass.merge(classValue, 1, (a, b) -> a + b);
     }
 
     double entropy = 0.0;
