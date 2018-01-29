@@ -1,7 +1,7 @@
 package at.hwl.machinelearning.ass3.metalearning.featureextraction;
 
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.DataSetNameExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.EntropyFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.modelbased.REPTreeSizeFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumClassFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
@@ -43,7 +43,7 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
 
 
   private void initializeFeatureExtractors() {
-    featureExtractors.add(new DataSetNameExtractor(instance));
+//    featureExtractors.add(new DataSetNameExtractor(instance));
     featureExtractors.add(new NumClassFeatureExtractor(instance));
     featureExtractors.add(new NumFeaturesFeatureExtractor(instance));
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
@@ -57,6 +57,7 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
     featureExtractors.add(new SkewnessStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new KurtosisMeanFeatureExtractor(instance));
     featureExtractors.add(new KurtosisStandardDeviationFeatureExtractor(instance));
+    featureExtractors.add(new REPTreeSizeFeatureExtractor(instance));
   }
 
   @Override
