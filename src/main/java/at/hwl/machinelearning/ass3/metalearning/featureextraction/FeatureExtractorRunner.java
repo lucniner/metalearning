@@ -1,12 +1,11 @@
 package at.hwl.machinelearning.ass3.metalearning.featureextraction;
 
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.DataSetNameExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.EntropyFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumClassFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumFeaturesFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.NumInstancesFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.ProportionMissingValuesFeatureExtractor;
-import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.StandardDeviationFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.informationtheoretic.EntropyFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.general.NumClassFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.general.NumFeaturesFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.general.NumInstancesFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.general.ProportionMissingValuesFeatureExtractor;
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.StandardDeviationMeanFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.CorrelationMeanFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.CorrelationStandardDeviationFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive.KurtosisMeanFeatureExtractor;
@@ -45,13 +44,13 @@ public class FeatureExtractorRunner implements Callable<FeaturePairs> {
 
 
   private void initializeFeatureExtractors() {
-    featureExtractors.add(new DataSetNameExtractor(instance));
+//    featureExtractors.add(new DataSetNameExtractor(instance));
     featureExtractors.add(new NumClassFeatureExtractor(instance));
     featureExtractors.add(new NumFeaturesFeatureExtractor(instance));
     featureExtractors.add(new NumInstancesFeatureExtractor(instance));
     featureExtractors.add(new ProportionMissingValuesFeatureExtractor(instance));
     featureExtractors.add(new EntropyFeatureExtractor(instance));
-    featureExtractors.add(new StandardDeviationFeatureExtractor(instance));
+    featureExtractors.add(new StandardDeviationMeanFeatureExtractor(instance));
     featureExtractors.add(new VarianceMeanFeatureExtractor(instance));
     featureExtractors.add(new VarianceStandardDeviationFeatureExtractor(instance));
     featureExtractors.add(new SkewnessMeanFeatureExtractor(instance));

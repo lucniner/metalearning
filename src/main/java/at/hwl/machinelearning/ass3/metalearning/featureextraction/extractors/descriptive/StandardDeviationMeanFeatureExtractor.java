@@ -1,5 +1,6 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.descriptive;
 
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.AbstractFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.SharedConstants;
@@ -10,9 +11,9 @@ import weka.core.Attribute;
 import weka.core.AttributeStats;
 import weka.core.Instances;
 
-public class StandardDeviationFeatureExtractor extends AbstractFeatureExtractor {
+public class StandardDeviationMeanFeatureExtractor extends AbstractFeatureExtractor {
 
-  public StandardDeviationFeatureExtractor(
+  public StandardDeviationMeanFeatureExtractor(
       DataSetInstance instance) {
     super(instance);
   }

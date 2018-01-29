@@ -1,5 +1,6 @@
-package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors;
+package at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.informationtheoretic;
 
+import at.hwl.machinelearning.ass3.metalearning.featureextraction.extractors.AbstractFeatureExtractor;
 import at.hwl.machinelearning.ass3.metalearning.utils.DataSetInstance;
 import at.hwl.machinelearning.ass3.metalearning.utils.FeaturePair;
 import at.hwl.machinelearning.ass3.metalearning.utils.SharedConstants;
