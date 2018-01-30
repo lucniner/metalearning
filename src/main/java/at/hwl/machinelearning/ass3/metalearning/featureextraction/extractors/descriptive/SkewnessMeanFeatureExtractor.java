@@ -42,9 +42,6 @@ public class SkewnessMeanFeatureExtractor extends DescriptiveStatisticsFeatureEx
             .peek(operand -> counter.incrementAndGet())
             .filter(Double::isFinite)
             .sum();
-    if (counter.get() == 0) {
-      counter.incrementAndGet();
-    }
     final double skewnessMean = skewnessSum / counter.get();
     return new FeaturePair(SharedConstants.SKEWNESS_MEAN, String.valueOf(skewnessMean));
   }

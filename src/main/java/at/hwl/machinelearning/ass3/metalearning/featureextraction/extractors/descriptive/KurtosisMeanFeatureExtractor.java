@@ -43,9 +43,6 @@ public class KurtosisMeanFeatureExtractor extends DescriptiveStatisticsFeatureEx
             .peek(operand -> counter.incrementAndGet())
             .filter(Double::isFinite)
             .sum();
-    if (counter.get() == 0) {
-      counter.incrementAndGet();
-    }
     final double kurtosisMean = kurtosisSum / counter.get();
     return new FeaturePair(SharedConstants.KURTOSIS_MEAN, String.valueOf(kurtosisMean));
   }
